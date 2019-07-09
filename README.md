@@ -1,5 +1,5 @@
 # Android-RoomWordsSample
-Words listing sample app built in Kotlin using Room, LiveData and ViewModel and Databinding.
+Words listing sample app built in Kotlin using Room, LiveData, ViewModel and Databinding.
 
 It has the functionalities like, insert, update, swipe to delete and deleteAll.
 
