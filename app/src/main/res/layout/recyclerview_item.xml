@@ -1,12 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:padding="10dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="word" type="com.yellu.roomwordssample.database.Word"/>
+    </data>
 
-    <TextView android:id="@+id/textView"
-              android:text="@string/app_name"
-              android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardUseCompatPadding="false">
 
-</LinearLayout>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="15dp">
+
+            <TextView android:id="@+id/textView"
+                      android:text="@{word.mWord}"
+                      android:layout_gravity="center_horizontal"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:textColor="#222222"
+                      android:textSize="18sp"/>
+
+        </LinearLayout>
+
+        <View android:layout_width="match_parent"
+              android:layout_height="1dp"
+              android:background="#D3D3D3"
+        android:layout_gravity="bottom"/>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

@@ -6,7 +6,9 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import android.os.AsyncTask
-
+/**
+Created by yellappa on 07,July,2019
+ */
 @Database(entities = [Word::class], version = 2, exportSchema = false)
 abstract class WordRoomDatabase:RoomDatabase() {
 

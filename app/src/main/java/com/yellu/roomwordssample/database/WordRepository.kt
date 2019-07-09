@@ -3,7 +3,9 @@ package com.yellu.roomwordssample.database
 import android.app.Application
 import androidx.lifecycle.LiveData
 import android.os.AsyncTask
-
+/**
+Created by yellappa on 07,July,2019
+ */
 class WordRepository(application: Application) {
     var wordDao:WordDao
     var mAllWords:LiveData<List<Word>>
@@ -19,48 +21,40 @@ class WordRepository(application: Application) {
     }
 
     fun insert(word:Word){
-        InsertAsyncTask(wordDao, true).execute(word)
+        InsertAsyncTask(wordDao, AppConstants.DBOperations.INSERT).execute(word)
     }
 
     fun deleteAll(){
-        DeleteAsyncTask(wordDao).execute()
+        DeleteAllAsyncTask(wordDao).execute()
     }
 
     fun deleteWord(word:Word){
-        InsertAsyncTask(wordDao, false).execute(word)
+        InsertAsyncTask(wordDao, AppConstants.DBOperations.DELETE).execute(word)
     }
 
     fun updateWord(word: Word) {
-        UpdateWordAsyncTask(wordDao).execute(word)
+        InsertAsyncTask(wordDao, AppConstants.DBOperations.UPDATE).execute(word)
     }
 
-    //    ====================== insert data async ===========
-    private class InsertAsyncTask internal constructor(private val mAsyncTaskDao: WordDao, private val isInsert:Boolean) : AsyncTask<Word, Void, Void>() {
-
+    //    ====================== insert/Update/Delete data async ===========
+    private class InsertAsyncTask internal constructor(private val mAsyncTaskDao: WordDao, private val isInsert:AppConstants.DBOperations)
+        :AsyncTask<Word, Void, Void>() {
         override fun doInBackground(vararg params: Word): Void? {
-            if(isInsert){
-                mAsyncTaskDao.insert(params[0])
-            }else{
-                mAsyncTaskDao.deleteWord(params[0])
+            when(isInsert){
+                AppConstants.DBOperations.INSERT -> mAsyncTaskDao.insert(params[0])
+                AppConstants.DBOperations.UPDATE -> mAsyncTaskDao.updateWord(params[0])
+                AppConstants.DBOperations.DELETE -> mAsyncTaskDao.deleteWord(params[0])
             }
             return null
         }
     }
 
-    //    ==================== deleteWord data async =================
-    private class DeleteAsyncTask internal constructor(private val mAsyncTaskDao: WordDao): AsyncTask<Void, Void, Void>() {
+    //    ==================== delete All Words/Data async =================
+    private class DeleteAllAsyncTask internal constructor(private val mAsyncTaskDao: WordDao)
+        :AsyncTask<Void, Void, Void>() {
         override fun doInBackground(vararg params: Void?): Void? {
             mAsyncTaskDao.deleteAll()
             return null
         }
-
-    }
-
-    private class UpdateWordAsyncTask internal constructor(private val mAsyncTaskDao: WordDao):AsyncTask<Word, Void, Void>(){
-        override fun doInBackground(vararg params: Word): Void? {
-            mAsyncTaskDao.updateWord(params[0])
-            return null
-        }
-
     }
 }

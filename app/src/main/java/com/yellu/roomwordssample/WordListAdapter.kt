@@ -1,16 +1,16 @@
 package com.yellu.roomwordssample
 
-import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.yellu.roomwordssample.database.Word
-import kotlinx.android.synthetic.main.recyclerview_item.view.*
+import com.yellu.roomwordssample.databinding.RecyclerviewItemBinding
+/**
+Created by yellappa on 07,July,2019
+ */
 
-class WordListAdapter(context: Context, val onClickListener:(Word) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var inflater:LayoutInflater = LayoutInflater.from(context)
+class WordListAdapter(val onClickListener: (Word) -> Unit) : RecyclerView.Adapter<WordListAdapter.WordViewHolder>() {
     private var mWords:List<Word>? = null
 
     fun setWords(mWords:List<Word>){
@@ -22,9 +22,9 @@ class WordListAdapter(context: Context, val onClickListener:(Word) -> Unit) : Re
         return mWords!![position]
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view:View = inflater.inflate(R.layout.recyclerview_item, parent, false)
-        return WordViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordViewHolder {
+        val binding:RecyclerviewItemBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.recyclerview_item, parent, false)
+        return WordViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -35,18 +35,18 @@ class WordListAdapter(context: Context, val onClickListener:(Word) -> Unit) : Re
         }
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (mWords != null){
-            val word:Word = mWords!![position]
-            holder.itemView.textView.text = word.mWord
-            Log.d("Word", "Word id===> " + word.id)
-        } else{
-            holder.itemView.textView.text = "No Word"
-        }
+    override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
+        val word:Word = mWords!![position]
+        holder.viewBinding.setVariable(BR.word, word)
+        holder.viewBinding.executePendingBindings()
+
         holder.itemView.setOnClickListener{
             onClickListener(this.mWords!![position])
         }
     }
 
-    class WordViewHolder(view:View):RecyclerView.ViewHolder(view)
+    class WordViewHolder(binding: RecyclerviewItemBinding):RecyclerView.ViewHolder(binding.root){
+        val viewBinding : RecyclerviewItemBinding = binding
+
+    }
 }

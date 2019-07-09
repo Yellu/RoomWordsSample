@@ -2,7 +2,9 @@ package com.yellu.roomwordssample.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-
+/**
+Created by yellappa on 07,July,2019
+ */
 @Dao
 interface WordDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)

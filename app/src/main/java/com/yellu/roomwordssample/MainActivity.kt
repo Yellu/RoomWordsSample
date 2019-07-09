@@ -16,7 +16,9 @@ import com.yellu.roomwordssample.database.Word
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.ItemTouchHelper
-
+/**
+Created by yellappa on 07,July,2019
+ */
 class MainActivity : AppCompatActivity() {
 
     private var adapter:WordListAdapter?= null
@@ -29,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         mWordViewModel = ViewModelProviders.of(this).get(WordViewModel::class.java)
 
-        adapter = WordListAdapter(this) { partItem : Word -> partItemClicked(partItem) }
+        adapter = WordListAdapter() { partItem : Word -> partItemClicked(partItem) }
 
         recyclerview.layoutManager = LinearLayoutManager(this)
         recyclerview.setHasFixedSize(true)

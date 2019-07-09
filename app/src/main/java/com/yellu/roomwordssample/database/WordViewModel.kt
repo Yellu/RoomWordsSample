@@ -3,7 +3,9 @@ package com.yellu.roomwordssample.database
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-
+/**
+Created by yellappa on 07,July,2019
+ */
 class WordViewModel(application: Application) : AndroidViewModel(application) {
     private var mRepository:WordRepository = WordRepository(application)
     private var mAllWords:LiveData<List<Word>>

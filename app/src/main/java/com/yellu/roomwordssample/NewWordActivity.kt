@@ -7,7 +7,9 @@ import android.text.TextUtils
 import androidx.appcompat.app.AppCompatActivity
 import com.yellu.roomwordssample.database.Word
 import kotlinx.android.synthetic.main.new_word_activity.*
-
+/**
+Created by yellappa on 07,July,2019
+ */
 class NewWordActivity:AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
